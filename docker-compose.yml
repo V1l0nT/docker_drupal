@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  drupal:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-themes:/var/www/html/themes
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: root
+      MYSQL_PASSWORD: example
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: root
+      MYSQL_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: example
+
+volumes:
+  drupal-modules:
+  drupal-themes:
